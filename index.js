@@ -1,14 +1,17 @@
    const express=require('express');
    const app=express();
    const port=8000;
-
-   const expressLayouts=require('express-ejs-layouts');
    const db=require('./config/mongoose');
 
-   app.use(expressLayouts);
-
+   const expressLayouts=require('express-ejs-layouts');
+   
    //set up static files
-   app.use(express.static('./config/mongoose'));
+ app.use(express.static('./assets'));
+  
+
+   app.use(expressLayouts);
+ 
+   
 
    //extract style and scripts from sub pages into th layouts
 
