@@ -3,8 +3,20 @@
    const port=8000;
 
    const expressLayouts=require('express-ejs-layouts');
+   const db=require('./config/mongoose');
 
    app.use(expressLayouts);
+
+   //set up static files
+   app.use(express.static('./config/mongoose'));
+
+   //extract style and scripts from sub pages into th layouts
+
+   app.set('layout extractStyles',true);
+   app.set('layout extractScripts',true);
+
+
+
 
    //use routes
 
