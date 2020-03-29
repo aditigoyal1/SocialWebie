@@ -5,6 +5,12 @@
 
    const expressLayouts=require('express-ejs-layouts');
    
+   const cookieParser=require('cookie-parser');
+
+
+   app.use(express.urlencoded());
+   app.use(cookieParser());
+   
    //set up static files
  app.use(express.static('./assets'));
   
