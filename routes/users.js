@@ -5,7 +5,7 @@ const usersController=require('../controllers/users_controller');
 
 const passport=require('passport');
 
-router.get('/profile',usersController.profile);
+router.get('/profile',passport.checkAuthentication,usersController.profile);
 
 
 router.get('/sign-up',usersController.signUp);
@@ -20,6 +20,8 @@ passport.authenticate('local',
 {failureRedirect:'/users/sign-in'
 
 },), usersController.createSession);
+
+
 
 
 module.exports=router;

@@ -51,7 +51,7 @@
 
    
 
-
+   app.use(passport.setAuthenticatedUser);
 
 
    //use routes
