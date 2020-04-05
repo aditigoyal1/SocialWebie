@@ -9,7 +9,7 @@ router.get('/',homeController.home);
 
 //for any other routes
 router.use('/users',require('./users'));
-
+router.use('/post',require('./post'));
 
 module.exports=router;
 
