@@ -3,9 +3,14 @@ const User=require("../models/user");
 
 module.exports.profile=function(req,res)
 {
-    return res.render('user_profile',{
-        title:"user profile",
+    User.findById(req.params.id,function(err,user){
+        return res.render('user_profile',{
+            title:"user profile",
+            profile_user:user
+        })
+
     })
+    
 }
 
 module.exports.signUp=function(req,res)
