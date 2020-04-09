@@ -1,50 +1,56 @@
 const Post=require('../models/post');
 const Comment=require('../models/comment');
 
-module.exports.create=function(req,res)
+module.exports.create=async function(req,res)
 {
-    Post.findById(req.body.post,function(err,post){
+    try {
+        let post=await Post.findById(req.body.post);
+
         if(post)
         {
-            Comment.create({
+            let comment=Comment.create({
                 content:req.body.content,
                 
                 user:req.user._id,
                 post:req.body.post,
-            },function(err,comment)
-            {
-                if(err)
-                {
-                    console.log("Error in creating the comment");
-                    return;
-                }
+            });
                 post.comments.push(comment);
                 post.save();
                 return res.redirect('/');
-            })
+            
         }
-    })
+        
+    } catch (error) {
+        console.log("Error",error);
+        return;
+        
+    }
+    
+    
 }
 
-module.exports.destroy=function(req,res)
+module.exports.destroy=async function(req,res)
 {
-    Comment.findById(req.params.id,function(err,comment)
-    {
+    try {
+        let comment=await Comment.findById(req.params.id);
+    
         if(comment.user==req.user.id)
         {
             let postId=comment.post;
             comment.remove();
-            Post.findByIdAndUpdate(postId,{$pull: {comments:req.params.id}},function(err,post)
-            {
-                return res.redirect('back');
-
-            });
-
-
+            let post= await Post.findByIdAndUpdate(postId,{$pull: {comments:req.params.id}});
+            
+            return res.redirect('back');
 
         }else{
             return res.redirect('back');
         }
+        
+    } catch (error) {
+        console.log("Error",error);
+        
+    }
+       
 
-    });
+ 
 }
