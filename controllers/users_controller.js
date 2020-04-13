@@ -23,6 +23,7 @@ module.exports.update=function(req,res)
         })
     }
     else{
+        req.flash('error', 'Unauthorized!');
         res.status(401).send("Unauthorized");
     }
 }
@@ -52,6 +53,7 @@ module.exports.create=function(req,res)
 {
     if(req.body.password!=req.body.confirm_password)
     {
+        req.flash('error', 'Passwords do not match');
         return res.redirect('back');
 
     }
@@ -74,6 +76,7 @@ module.exports.create=function(req,res)
                  return res.redirect('/users/sign-in');
              })
          }else{
+            req.flash('success', 'You have signed up, login to continue!');
              return res.redirect('back');
          }   
         
