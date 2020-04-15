@@ -1,4 +1,7 @@
 const User=require("../models/user");
+const fs=require("fs");
+const path=require('path');
+
 
 
 module.exports.profile=function(req,res)
@@ -44,6 +47,30 @@ module.exports.update= async function(req,res)
 
                 if(req.file)
                 {
+                    if(user.avatar){
+
+                        fs.exists(path.join(__dirname,"..",user.avatar),function(exists){
+                            if(exists)
+                            {
+                                fs.unlinkSync(path.join(__dirname,"..",user.avatar));
+                            }else{
+                                console.log('NOT available');
+                            }
+                        });
+
+                        // fs.unlink(path.join(__dirname,"..",user.avatar),function(err){
+                        //     if(err && err.code=='ENOENT'){
+                        //         console.log("File doesn't exist,won't remove it");
+                        //     }
+                        //     else if(err)
+                        //     {
+                        //         console.error("Error occured while trying to remove file");
+                        //     }
+                        //     else{
+                        //         console.log('removed');
+                        //     }
+                        
+                    }
 
                     user.avatar=User.avatarPath+'/'+req.file.filename;
                 }
