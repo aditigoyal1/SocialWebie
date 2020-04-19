@@ -10,8 +10,8 @@ let transporter=nodemailer.createTransport({
     port:587,
     secure:false,
     auth:{
-        user:'aditiprotocol1@gmail.com',
-        pass:12345
+        user:'example@gmail.com',
+        pass:"12345"
     }
 });
 
@@ -39,5 +39,5 @@ let renderTemplate=(data,relativepath)=>{
 
 module.exports={
     transporter:transporter,
-    renderTemplate:renderTemplate
+    renderTemplate:renderTemplate,
 }
